@@ -1,3 +1,4 @@
+## Steps to deploy AI application on GCP instance
 1. Go to the google console. 
 2. Search for compute engine
 3. Create an Instance with machine type n1-standard-4 machine  
@@ -20,3 +21,26 @@
 12. Edit file to update openai api key => vi constants.py
 13. Edit app.py to update CREWAI_STORAGE_PATH => vi app.py
 14. Test if env is loaded with success => python3 test_env.py
+15. Finally start application => python3 ./src/app.py
+16. The application will be successfully started on 0.0.0.0/0:7860 port.
+17. To enable incoming traffic on 7860, add firewall rule
+
+## Steps to add firewall rule (Open the Necessary Port (Firewall Rule))
+1. In the Google Cloud Console search bar, type "Firewall" and select "Firewall"
+2. Click "Create Firewall Rule".
+3. Name: allow-app-access
+4. Network: default
+5. Direction of traffic: Ingress
+6. Action on match: Allow
+7. Targets: All instances in the network
+8. Source filter: IPv4 ranges
+9. Source IPv4 ranges: 0.0.0.0/0 (This allows traffic from anywhere).
+10. Protocols and ports: Check "Specified protocols and ports", then check "tcp" and enter the port your application is using.
+11. Click Create.
+
+## Access the application histed on gcp instance
+Once the firewall rule is active. 
+Open your browser.
+Type http://YOUR_EXTERNAL_IP:7860
+Example: [http://34.123.45.67:8080](http://34.123.45.67:8080)
+It should launch the application with success.
